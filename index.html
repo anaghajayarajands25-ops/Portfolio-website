@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Anagha Jayarajan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #fafaf8;
+      --surface: #f3f2ee;
+      --line: #e2e0da;
+      --ink: #1a1917;
+      --mid: #6b6860;
+      --accent: #2d5a4e;
+      --accent-light: #e8f0ed;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 5vw;
+      background: rgba(250,250,248,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-weight: 600;
+      letter-spacing: .02em; color: var(--ink);
+      text-decoration: none;
+    }
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+    .nav-links a {
+      font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
+      text-decoration: none; color: var(--mid);
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      max-width: 960px; margin: 0 auto;
+      padding: 0 5vw;
+      display: flex; flex-direction: column; justify-content: center;
+      padding-top: 6rem;
+    }
+    .hero-label {
+      font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.6rem;
+      display: flex; align-items: center; gap: .8rem;
+    }
+    .hero-label::after {
+      content: ''; display: block;
+      width: 2rem; height: 1px; background: var(--accent);
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 300; line-height: 1.08;
+      letter-spacing: -.01em;
+      color: var(--ink);
+      margin-bottom: 1.8rem;
+    }
+    h1 em { font-style: italic; font-weight: 300; }
+    .hero-desc {
+      font-size: 1rem; color: var(--mid);
+      max-width: 52ch; line-height: 1.8;
+      margin-bottom: 2.8rem;
+    }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: .6rem; }
+    .tag {
+      font-size: .72rem; letter-spacing: .08em; text-transform: uppercase;
+      padding: .35rem .9rem;
+      border: 1px solid var(--line);
+      color: var(--mid);
+      background: transparent;
+    }
+
+    /* DIVIDER */
+    .rule {
+      max-width: 960px; margin: 0 auto;
+      height: 1px; background: var(--line);
+    }
+
+    /* SECTIONS */
+    .section {
+      max-width: 960px; margin: 0 auto;
+      padding: 5.5rem 5vw;
+    }
+    .section-label {
+      font-size: .7rem; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 2.8rem;
+      display: flex; align-items: center; gap: .8rem;
+    }
+    .section-label::before {
+      content: attr(data-num);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-style: italic;
+      color: var(--line); margin-right: .2rem;
+    }
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 300; line-height: 1.2;
+      margin-bottom: 1.8rem;
+    }
+    h2 em { font-style: italic; color: var(--accent); }
+
+    /* ABOUT */
+    .about-body {
+      display: grid; grid-template-columns: 3fr 2fr; gap: 5rem;
+      align-items: start;
+    }
+    .about-text p {
+      font-size: .96rem; color: #3a3832;
+      line-height: 1.85; margin-bottom: 1.1rem;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-meta { display: flex; flex-direction: column; gap: 1.6rem; }
+    .meta-item {}
+    .meta-key {
+      font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: .3rem;
+    }
+    .meta-val { font-size: .92rem; color: var(--ink); }
+
+    /* EDUCATION */
+    .edu-list { display: flex; flex-direction: column; gap: 0; }
+    .edu-row {
+      display: grid; grid-template-columns: 160px 1fr;
+      gap: 2rem; align-items: baseline;
+      padding: 1.8rem 0;
+      border-bottom: 1px solid var(--line);
+      opacity: 0; transform: translateY(16px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .edu-row:first-child { border-top: 1px solid var(--line); }
+    .edu-row.visible { opacity: 1; transform: none; }
+    .edu-year {
+      font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--mid); padding-top: .15rem;
+    }
+    .edu-right {}
+    .edu-degree {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 600; color: var(--ink);
+      margin-bottom: .25rem;
+    }
+    .edu-inst { font-size: .88rem; color: var(--mid); }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+    .skill-cell {
+      background: var(--bg);
+      padding: 1.5rem 1.6rem;
+      transition: background .2s;
+    }
+    .skill-cell:hover { background: var(--accent-light); }
+    .skill-icon { font-size: 1.4rem; margin-bottom: .7rem; }
+    .skill-name {
+      font-size: .88rem; font-weight: 400;
+      color: var(--ink); line-height: 1.4;
+    }
+
+    /* INTERESTS / QUOTE */
+    .quote-block {
+      border-left: 2px solid var(--accent);
+      padding: 1.4rem 2rem;
+      background: var(--accent-light);
+      margin: 2rem 0;
+    }
+    .quote-block p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-style: italic;
+      font-weight: 300; line-height: 1.6;
+      color: var(--ink);
+    }
+
+    .interest-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem; margin-top: 1.5rem;
+    }
+    .interest-card {
+      padding: 1.6rem;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      transition: border-color .2s, transform .2s;
+    }
+    .interest-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .i-icon { font-size: 1.5rem; margin-bottom: .8rem; }
+    .i-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 600; margin-bottom: .4rem;
+    }
+    .i-desc { font-size: .84rem; color: var(--mid); line-height: 1.65; }
+
+    /* CONTACT */
+    .contact-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .contact-left h2 { margin-bottom: 1rem; }
+    .contact-left p { font-size: .95rem; color: var(--mid); line-height: 1.8; margin-bottom: 2rem; }
+    .contact-links { display: flex; flex-direction: column; gap: .75rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 1rem;
+      text-decoration: none; color: var(--ink);
+      font-size: .9rem;
+      padding: .8rem 1rem;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      transition: border-color .2s, background .2s;
+    }
+    .contact-link:hover { border-color: var(--accent); background: var(--accent-light); }
+    .contact-link .cl-lbl { font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--mid); min-width: 50px; }
+    .contact-right {
+      display: flex; align-items: center; justify-content: center;
+    }
+    .initials-block {
+      width: 220px; height: 220px;
+      border: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .initials-block::before {
+      content: '';
+      position: absolute; inset: 8px;
+      border: 1px solid var(--accent-light);
+    }
+    .initials {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem; font-style: italic; font-weight: 300;
+      color: var(--accent); line-height: 1;
+      position: relative; z-index: 1;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 1.8rem 5vw;
+      max-width: 960px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    footer p {
+      font-size: .72rem; letter-spacing: .08em;
+      color: var(--mid); text-transform: uppercase;
+    }
+
+    /* REVEAL */
+    .reveal {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      .nav-links { display: none; }
+      .about-body, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .contact-right { display: none; }
+      .edu-row { grid-template-columns: 1fr; gap: .3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">Anagha <span>Jayarajan</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#interests">Research</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">MSc Data Science &amp; Bio AI</div>
+  <h1>Anagha<br><em>Jayarajan</em></h1>
+  <p class="hero-desc">
+    Bridging biology and artificial intelligence to unlock the next frontier of healthcare.
+    Based in Kerala, India — studying at Digital University Kerala.
+  </p>
+  <div class="hero-tags">
+    <span class="tag">Bioinformatics</span>
+    <span class="tag">Machine Learning</span>
+    <span class="tag">Drug Discovery</span>
+    <span class="tag">Web Development</span>
+    <span class="tag">Genomics</span>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ABOUT -->
+<div class="section" id="about">
+  <div class="section-label" data-num="01">About</div>
+  <h2>Biology meets <em>Intelligence</em></h2>
+  <div class="about-body reveal">
+    <div class="about-text">
+      <p>
+        I have always been fascinated by how technology can be used to understand the natural world.
+        My studies focus on using data-driven methods to solve complex biological challenges.
+        I believe that the combination of biology and artificial intelligence holds the key to future medical breakthroughs.
+      </p>
+      <p>
+        In my coursework, I learn how to analyze large datasets to find meaningful patterns that others might miss.
+        I am particularly interested in how machine learning can speed up the process of drug discovery and development.
+        My goal is to use my programming skills to help doctors provide better and more personalized treatments for their patients.
+      </p>
+      <p>
+        I aim to bridge the gap between computer science and laboratory research, believing that a collaborative approach
+        between these two fields is essential for true innovation. Every day, I am motivated by the possibility of making
+        a positive impact on global health.
+      </p>
+    </div>
+    <div class="about-meta">
+      <div class="meta-item">
+        <div class="meta-key">Native</div>
+        <div class="meta-val">Kannur, Kerala</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-key">Currently</div>
+        <div class="meta-val">MSc Data Science &amp; Bio AI</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-key">Background</div>
+        <div class="meta-val">BSc Biotechnology</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-key">Passion</div>
+        <div class="meta-val">Web Development &amp; Bio AI</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- EDUCATION -->
+<div class="section" id="education">
+  <div class="section-label" data-num="02">Education</div>
+  <h2>Academic <em>Journey</em></h2>
+  <div class="edu-list">
+    <div class="edu-row">
+      <div class="edu-year">2025 – 2027</div>
+      <div class="edu-right">
+        <div class="edu-degree">M.Sc Data Science and Bio AI</div>
+        <div class="edu-inst">Digital University Kerala</div>
+      </div>
+    </div>
+    <div class="edu-row">
+      <div class="edu-year">2022 – 2025</div>
+      <div class="edu-right">
+        <div class="edu-degree">B.Sc Biotechnology</div>
+        <div class="edu-inst">Chinmaya Arts and Science College</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- SKILLS -->
+<div class="section" id="skills">
+  <div class="section-label" data-num="03">Skills</div>
+  <h2>What I <em>Bring</em></h2>
+  <div class="skills-grid reveal">
+    <div class="skill-cell">
+      <div class="skill-icon">🧬</div>
+      <div class="skill-name">Molecular Biology</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">💻</div>
+      <div class="skill-name">Bioinformatics</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">💊</div>
+      <div class="skill-name">Computer Aided Drug Designing</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">🌐</div>
+      <div class="skill-name">Web Development</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">💬</div>
+      <div class="skill-name">Communication Skills</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">🔍</div>
+      <div class="skill-name">Analytical Thinking</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">🧩</div>
+      <div class="skill-name">Problem Solving</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">🤖</div>
+      <div class="skill-name">Machine Learning</div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- RESEARCH INTERESTS -->
+<div class="section" id="interests">
+  <div class="section-label" data-num="04">Research Focus</div>
+  <h2>What <em>Drives Me</em></h2>
+
+  <div class="quote-block reveal">
+    <p>"Data Science gives me the tools to turn raw information into useful knowledge that can save lives.
+    Bio AI allows me to apply those tools to the most important subject of all — human life."</p>
+  </div>
+
+  <div class="interest-list reveal">
+    <div class="interest-card">
+      <div class="i-icon">🧪</div>
+      <div class="i-title">Drug Discovery</div>
+      <div class="i-desc">Using machine learning to accelerate the identification and development of new therapeutic compounds.</div>
+    </div>
+    <div class="interest-card">
+      <div class="i-icon">🧠</div>
+      <div class="i-title">Neural Networks &amp; Genomics</div>
+      <div class="i-desc">Staying at the cutting edge of deep learning applied to genomic data and biological sequence analysis.</div>
+    </div>
+    <div class="interest-card">
+      <div class="i-icon">🏥</div>
+      <div class="i-title">Personalized Medicine</div>
+      <div class="i-desc">Developing algorithmic tools that help clinicians provide precise, individualized patient treatments.</div>
+    </div>
+    <div class="interest-card">
+      <div class="i-icon">🔬</div>
+      <div class="i-title">Biological Pattern Recognition</div>
+      <div class="i-desc">Finding hidden patterns in complex biological datasets to predict outcomes with high accuracy.</div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- CONTACT -->
+<div class="section" id="contact">
+  <div class="contact-inner">
+    <div class="contact-left reveal">
+      <div class="section-label" data-num="05">Contact</div>
+      <h2>Let's <em>Connect</em></h2>
+      <p>
+        Open to collaborations in Bio AI, data science research, and web development projects.
+        Feel free to reach out.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:anagha@example.com" class="contact-link">
+          <span class="cl-lbl">Email</span>
+          anagha@example.com
+        </a>
+        <a href="https://linkedin.com/" target="_blank" class="contact-link">
+          <span class="cl-lbl">LinkedIn</span>
+          linkedin.com/in/anagha-jayarajan
+        </a>
+        <a href="https://github.com/" target="_blank" class="contact-link">
+          <span class="cl-lbl">GitHub</span>
+          github.com/anagha-jayarajan
+        </a>
+      </div>
+    </div>
+    <div class="contact-right reveal">
+      <div class="initials-block">
+        <span class="initials">AJ</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 Anagha Jayarajan</p>
+  <p>Kannur, Kerala · India</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal, .edu-row').forEach(el => io.observe(el));
+
+  // Stagger edu rows
+  document.querySelectorAll('.edu-row').forEach((row, i) => {
+    row.style.transitionDelay = `${i * 0.12}s`;
+  });
+</script>
+
+</body>
+</html>
